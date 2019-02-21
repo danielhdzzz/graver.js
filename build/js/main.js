@@ -122,42 +122,7 @@ var graverLib = function graverLib(target) {
 	var size = function size(xc, yc) {
 		drawingWidth = xc;
 		drawingHeight = yc;
-		// maybe not good? insted of restarting drawing,
-		// cut if new size is smaller, and add chars when larger
-		// v
 		init();
-		// let xDiff = drawingWidth - xc;
-		// let yDiff = drawingHeight - yc;
-
-		// if (xc < drawingWidth) { // making window smaller
-		// 	for (var i = 0; i < drawing.length; i++) {
-		// 		console.log(xc)
-		// 		drawing[i].slice(0, xc);
-		// 	}
-
-		// } else { // expanding window
-		// 	for (var j = 0; j < drawing.length; j++) {
-		// 		for (var i = 0; i < (xDiff * -1); i++) {
-		// 			drawing[j] += backgroundChar;
-		// 		}
-		// 	}
-		// }
-
-		// if (yc < drawingHeight) {
-		// 	drawing.slice(0, yc);
-
-		// } else {
-		// 	for (var i = 0; i < (yDiff * -1); i++) {
-		// 		let str = ""
-		// 		for (var  j = 0;  j < xc;  j++) {
-		// 			str += backgroundChar
-		// 		}
-		// 		drawing.push(str);
-		// 	}
-		// }
-		// drawingWidth = xc;
-		// drawingHeight = yc;
-		// display()
 	};
 
 	var fullscreen = function fullscreen() {
@@ -186,11 +151,6 @@ var graverLib = function graverLib(target) {
 					fullscreen();
 					display();
 				}
-				// console.log(drawing);
-
-				// console.log(drawing);
-				// display(target);
-				// not responsive without animation, fix
 			};
 		}
 	};
@@ -207,14 +167,7 @@ var graverLib = function graverLib(target) {
 		var x = Math.floor(xc);
 		var y = Math.floor(yc);
 
-		// for (var i = 0; i < drawing[yc].length; i++) {
-		// 	console.log();
-		// }
-
-		// console.log(drawing);
-
 		if (x >= 0 && y >= 0 && x < drawingWidth && y < drawingHeight) {
-			// drawing = drawing.replaceAt(getCoords(x,y), strokeChar);
 			drawing[y] = drawing[y].replaceAt(x, strokeChar);
 		}
 	};
@@ -224,14 +177,6 @@ var graverLib = function graverLib(target) {
 		stroke(backgroundChar);
 		point(xc, yc);
 		stroke(prevStroke);
-
-		// let x = Math.floor(xc);
-		// let y = Math.floor(yc);
-
-		// if (x >= 0 && y >= 0 && x < drawingWidth && y < drawingHeight) {
-		// 	// drawing = drawing.replaceAt(getCoords(x,y), strokeChar);
-		// 	drawing[y] = drawing[y].replaceAt(x,backgroundChar);
-		// }
 	};
 
 	var line = function line(x1, y1, x2, y2) {
@@ -253,15 +198,6 @@ var graverLib = function graverLib(target) {
 		}
 		stroke(prevStroke);
 	};
-
-	// const colorText = (string, x, y, r, g, b, bgr, bgg, bgb) => {
-	// 	text(string,x,y);
-
-	// 	const tag = `<span style="background-color: rgb(${bgr},${bgg},${bgb}); color: rgb(${r},${g},${b});">`
-
-	// 	drawing[y] = insertStr(drawing[y],tag,x);
-	// 	drawing[y] = insertStr(drawing[y],"</span>",x + tag.length + string.length);
-	// }
 
 	var link = function link(url, string, x, y) {
 		links.push({
@@ -419,7 +355,6 @@ var graverLib = function graverLib(target) {
 
 		var str = "";
 
-		//// render linksssss
 		var currentY = void 0;
 		var compX = 0; // compensation for x coordinates, considering length of html <a> tags
 		for (var i = 0; i < links.length; i++) {
@@ -433,7 +368,6 @@ var graverLib = function graverLib(target) {
 			renderLink(links[i].url, links[i].string, links[i].x + compX, links[i].y);
 			currentY = links[i].y;
 		}
-		/////////////////////
 
 		for (var _i6 = 0; _i6 < drawing.length; _i6++) {
 			var currentLine = drawing[_i6];
@@ -446,12 +380,9 @@ var graverLib = function graverLib(target) {
 	loadFont(target);
 
 	document.fonts.ready.then(function () {
-		// console.log(`${font} loaded? ` + document.fonts.check(`1em ${font}`));  // should be true
 		charD = getCharDimensions(target);
 		init();
 	});
-
-	// init();
 
 	return {
 		loadTitleFont: loadTitleFont,
