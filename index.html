@@ -2,13 +2,100 @@
 <html>
 <head>
 	<title></title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="build/js/main.js"></script>
+	<!-- TEMPORARY -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="build/css/main.css">
-	<!-- bad... include jquery via npm -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style type="text/css">
+	</style>
 </head>
 <body>
-	<script src="./build/js/main.js"></script>
+	<div id="asciiDrawing"></div>
+
+	<script type="text/javascript">
+		let font = $("#asciiDrawing").css("font-family");
+
+		var graver = graverLib("#asciiDrawing");
+
+		graver.loadTitleFont("isometric1", "isometric2", "isometric3", function(){
+			document.fonts.ready.then(function () {
+
+				graver.fullscreen();
+				graver.responsive();
+
+				let time = 0;
+
+				setInterval(function(){
+
+					let art = [
+						`$$$$$$$$$$$___$$$$$$|\\________/)`,
+						`$$$$$$$$$$[_,_])$$$$\\ /       \\|`,
+						`$$$$$$$$$/|=T=|]$$$$$/   __  __\\`,
+						`$$$$$$$$$|\\ " //$$$$$|_  9   p ]\\`,
+						`$$$$$$$$$||'-'/--.$$/ /\\ =|  \\|\\ \\`,
+						`$$$$$$$$/|| <\\/> |\\$| '._, @ @)<_)`,
+						`$$$$$$$| |\\   |  |  $\\.__/(_;_)`,
+						`$$$$$$$|  .   H  |  $|  :  '='|`,
+						`$$$$$$$|  |  _H__/  $| :      |`,
+						`$$$$$$$$\\  '.__  \\ /  ;      ';`,
+						`$$$$$$$__'-._(_}==.'  :       ;`,
+						`$$$$$$(___|    /-' |   :.     :`,
+						`$$$$$[.-'  \\   |   \\   \\ ;   :`,
+						`$$$$.-'     |  |    |  |   ":`,
+						`$$$/        |==|     \\  \\  /  \\_`,
+						`$$/         [  |      '._\\_ -._ \\`,
+						`$/           \\__)   __.- \\ \\   )\\`,
+						`/       |        /.'      >>)`,
+						`|        \\       |\\     |`,
+						`|     .'  '-.    | \\    /`,
+						`|    /     /     / /   /`,
+						` \\    \\    |    / /   /`
+					];
+
+					graver.background("_");
+					graver.clearAll();
+					graver.point(graver.width() / 2, graver.height() / 2, 0,0,255);
+					graver.point(graver.width() / 2 + 1, graver.height() / 2, 0,0,255);
+					graver.point(graver.width() / 2 + 3, graver.height() / 2, 0,255,255);
+					graver.clearAll();
+					graver.stroke("!");
+					graver.line(0,0, graver.width(), graver.height());
+					graver.line(0,graver.height(), graver.width(), 0);
+					graver.stroke("+");
+					graver.strokeRect(2,2,graver.width() - 4,graver.height() - 4);
+					graver.text("HELLOOO",graver.width() / 2 - 4, 1);
+					graver.text("RESIZE THE WINDOW ;)",graver.width() / 2 - 10, 3);
+
+					for (var i = 0; i < 300; i+=30) {
+						graver.strokeEllipse(
+							graver.width() / 2 - time / 2 - i / 2,
+							graver.height() / 2 - time / 2 - i / 2,
+							time + i,
+							time + i
+						);
+					}
+					
+					graver.importAscii(art, graver.width() / 2 - 20, graver.height() - art.length, "$");
+					
+					if (Math.floor(time / 10) === 0) {
+						graver.title("isometric1", "test", graver.width() / 2 - 27, 8, -1);
+					} else if (Math.floor(time / 10) === 1) {
+						graver.title("isometric2", "test", graver.width() / 2 - 27, 8, -1);
+					} else {
+						graver.title("isometric3", "test", graver.width() / 2 - 27, 8, -1);
+					}
+
+					graver.display("#asciiDrawing");
+
+					time++;
+					if (time >= 30) {
+						time = 0;
+					}
+
+				},30);
+			});
+		});
+
+	</script>
 </body>
 </html>
